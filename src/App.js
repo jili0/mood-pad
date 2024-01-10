@@ -1,43 +1,50 @@
-import './App.css';
-import React from "react"
-import {db, myCollection} from "./firebase"
-//onSnapshot enables: listen to changes in the firestore database and then act accordingly in the local code
-import { onSnapshot, addDoc, doc, deleteDoc } from "firebase/firestore"
+import React from "react";
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged} from "firebase/auth";
 
-function App() {
-  const [data, setData] = React.useState([])
+import "./App.css";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import SignedIn from "./components/SignedIn";
+import Footer from "./components/Footer";
 
-  React.useEffect(() => {
-    const unsubscribeFunction = onSnapshot(myCollection, (snapshot) => {
-      // Sync up our local notes array with the snapshot data
-      console.log("Database is changing!")
-      const dataArr = snapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
-      }))
-      setData(dataArr)
+const App = () => {
+  const [signedIn, setSignedIn] = React.useState(false);
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD6QAiG1M9jcmlidvHBPL8fZocb2S8Ia48",
+    authDomain: "jili0-react-project.firebaseapp.com",
+    projectId: "jili0-react-project",
+    storageBucket: "jili0-react-project.appspot.com",
+    messagingSenderId: "1067526600287",
+    appId: "1:1067526600287:web:7fece1f469faec016e0dea",
+    measurementId: "G-FJKCTSMY82",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  React.useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setSignedIn(true)
+      } else {
+        setSignedIn(false)
+      }
     })
-    return () => unsubscribeFunction
   }, [])
-
-  const addData = async () => {
-    const newData = {body: "I am a newData"}
-    const newDataReference = await addDoc(myCollection, newData)
-    console.log(newDataReference.id)
-  }
-
-  const deleteData = async (id) => {
-    const docReference = doc(db, "myCollection", id)
-    await deleteDoc(docReference)
-  }
 
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <button onClick={addData}>addData</button>
-
+      <Header />
+      {signedIn ? (
+        <SignedIn auth={auth} />
+      ) : (
+        <Main auth={auth} />
+      )}
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;

@@ -1,10 +1,11 @@
 import React from "react";
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged} from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 import "./App.css";
 import Header from "./components/Header";
-import Main from "./components/Main";
+import LogIn from "./components/LogIn";
 import SignedIn from "./components/SignedIn";
 import Footer from "./components/Footer";
 
@@ -23,25 +24,22 @@ const App = () => {
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setSignedIn(true)
+        setSignedIn(true);
       } else {
-        setSignedIn(false)
+        setSignedIn(false);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   return (
     <div className="App">
-      <Header />
-      {signedIn ? (
-        <SignedIn auth={auth} />
-      ) : (
-        <Main auth={auth} />
-      )}
+      <Header auth={auth}/>
+      {signedIn ? <SignedIn auth={auth} db={db} /> : <LogIn auth={auth} />}
       <Footer />
     </div>
   );

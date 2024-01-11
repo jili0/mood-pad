@@ -1,20 +1,14 @@
-import React from "react"
-import { signOut } from "firebase/auth";
+import React from "react";
 import UserSection from "./UserSection";
+import AddPost from "./AddPost";
+import DisplayPost from "./DisplayPost";
 
-const SignedIn = ({ auth, toggleSignedIn }) => {
-
-  const signOutUser = () => {
-    signOut(auth)
-      .then(console.log("successful signed out"))
-      .catch((error) => console.error(error.message));
-  };
-
+const SignedIn = ({ auth, db }) => {
   return (
     <main>
-      <UserSection auth={auth}/>
-      <button onClick={signOutUser}>Sign out</button>
-      
+      <DisplayPost db={db} auth={auth}/>
+      <UserSection auth={auth} />
+      <AddPost db={db} auth={auth} />
     </main>
   );
 };

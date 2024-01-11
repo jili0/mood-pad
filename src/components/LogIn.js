@@ -4,12 +4,12 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
 
-const Main = ({ toggleSignedIn, auth }) => {
-  const [email, setEmail] = React.useState("default@email.com");
-  const [password, setPassword] = React.useState("defaultPassword");  
+const Main = ({ auth }) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const provider = new GoogleAuthProvider();
 
   const changeEmail = (e) => {
@@ -23,32 +23,42 @@ const Main = ({ toggleSignedIn, auth }) => {
 
   const signInWithGoogle = () => {
     console.log("Sign in with Google");
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log("Signed in with Google!")
-      }).catch((error) => {
-        console.error(error.message)
-      });
-
-  };
-
-  const signIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(console.log("sign in..."))
+        console.log("Signed in with Google!");
+      })
       .catch((error) => {
         console.error(error.message);
       });
   };
 
+  const clearEmailAndPassword = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  const signIn = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(clearEmailAndPassword())
+      .catch((error) => {
+        console.error(error.message);
+        alert("Oops, something went wrong. \n Please check your email and password once again")
+        clearEmailAndPassword();
+      });
+  };
+
   const createAccount = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(console.log("create account..."))
-      .catch((err) => console.error(err.code));
+      .then(clearEmailAndPassword())
+      .catch((error) => {
+        console.error(error.message);
+        alert("Oops, something went wrong. \nPlease make sure that \n - your password is more than 6 characters \n - your email is valid and not already registered")
+        clearEmailAndPassword();
+      })
   };
 
   return (
-    <main>
       <div className="signInElements">
         <button onClick={signInWithGoogle}>Sign in with Google</button>
         <input
@@ -68,7 +78,6 @@ const Main = ({ toggleSignedIn, auth }) => {
 
         <button onClick={createAccount}>Create account</button>
       </div>
-    </main>
   );
 };
 export default Main;

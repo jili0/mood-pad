@@ -1,40 +1,128 @@
 import React from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  orderBy,
+  limit,
+  doc,
+  updateDoc,
+  deleteDoc
+} from "firebase/firestore";
 
 const DisplayPost = ({ db, auth }) => {
-  const q = query(
-    collection(db, "posts"),
-    where("authorID", "==", auth.currentUser.uid)
-  );
-  console.log(q);
+  const updatePost = (auth) => {
+    const q = query(
+      collection(db, "posts"),
+      where("authorID", "==", auth.currentUser.uid),
+      orderBy("time", "desc"),
+      limit(100)
+    );
 
-  const getPosts = async () => {
-    const querySnapshot = await getDocs(q);
-    let postArray = []
-    const postContainer = document.getElementById("postContainer");
-    const convertDate = (firebaseDate) => {
-      let date = firebaseDate.data().time.toDate().getDate().toString()
-      let month = ["01","02","03","04","05","06","07","08","09","10","11","12"][firebaseDate.data().time.toDate().getMonth()]
-      let year = firebaseDate.data().time.toDate().getFullYear()
-      return (`${date}-${month}-${year}`)
+    const editTitle = async (postID, postTitle) => {
+      const newTitle = prompt("Editing post title", postTitle)
+      if (newTitle) {
+        await updateDoc((doc(db, "posts", postID)), {
+          title: newTitle
+        })
+      }
     }
-    
-    querySnapshot.forEach((post) => {
-      let title
-      post.data().title ? title = post.data().title : title = post.data().content.split(" ").slice(0, 5).join(" ")
-      const postElement = `<li key={post.id} name={post.data().authorID} className="postItem"><details>
-      <summary className="postDataTitle">${title}  <p className="postTimeAndAuthor">${convertDate(post)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"></* !--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */<path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/></svg>  ${post.data().authorID}&nbsp;&nbsp;&nbsp;&nbsp;${post.data().moodId}</p></summary>
-      <p id="postDataContent">${post.data().content}</p>
-      </details>
-    </li>`;
-      postArray += postElement;
+    const editPost = async (postID, postContent) => {
+      const newContent = prompt("Editing the post", postContent)
+      if (newContent) {
+        await updateDoc((doc(db, "posts", postID)), {
+          content: newContent
+        })
+      }
+    }
+
+    const deletePost = async (postID) => {
+      const confirm = prompt("Type anything to confirm delete")
+      if (confirm) {
+        await deleteDoc(doc(db, "posts", postID))
+      }
+    }
+
+    onSnapshot(q, (querySnapshot) => {
+      const postContainer = document.getElementById("postContainer");
+      postContainer.innerHTML = "";
+
+      querySnapshot.forEach((post) => {
+        let title;
+        post.data().title
+          ? (title = post.data().title)
+          : (title = post.data().content.split(" ").slice(0, 5).join(" "));
+
+        let time = post.data().time;
+        let content = post.data().content;
+        const formatNumber = (num) => {
+          return num.toString().length === 1
+            ? 0 + num.toString()
+            : num.toString();
+        };
+
+        /* Create HTML Elements */
+        const postHeaderContainer = document.createElement("div")
+        const postTitle = document.createElement("p")
+        const postTitleEdit = document.createElement("button")
+        const postContent = document.createElement("p")
+        const postTimeButtonsContainer = document.createElement("div")
+        const postTime = document.createElement("p")
+        const postButtons = document.createElement("div")
+        const postButtonEdit = document.createElement("button")
+        const postButtonDelete = document.createElement("button")
+
+        /* Set Class Name */
+        postHeaderContainer.className = "postHeaderContainer"
+        postTitle.className = "postTitle"
+        postTitleEdit.className = "postTitleEdit"
+        postTitleEdit.classList.add("noWrap")
+        postContent.className = "postContent"
+        postContent.classList.add("whiteSpacePre")
+        postTimeButtonsContainer.className = "postTimeButtonsContainer"
+        postTime.className = "postTime"
+        postButtons.className = "postButtons"
+        postButtonEdit.className = "postButtonEdit"
+        postButtonDelete.className = "postButtonDelete"
+
+        /* Add function */
+        postTitleEdit.onclick = () => editTitle(post.id, title)
+        postButtonEdit.onclick = () => editPost(post.id, content)
+        postButtonDelete.onclick = () => deletePost(post.id)
+
+        /* Set Text Content */
+        postTitle.textContent = title && title
+        postTitleEdit.textContent = "Edit Title"
+        postContent.textContent = content && content
+        postTime.textContent = `${
+          time && formatNumber(time.toDate().getDate())
+        }-${time && formatNumber(time.toDate().getMonth() + 1)}-${
+          time && formatNumber(time.toDate().getFullYear())
+        } ${time && formatNumber(time.toDate().getHours())}:${
+          time && formatNumber(time.toDate().getMinutes())
+        }`;
+        postButtonEdit.textContent = "Edit"
+        postButtonDelete.textContent = "Delete"
+
+        /* Chain HTML Elements together */
+        postHeaderContainer.appendChild(postTitle)
+        postHeaderContainer.appendChild(postTitleEdit)
+        postTimeButtonsContainer.appendChild(postTime)
+        postTimeButtonsContainer.appendChild(postButtons)
+        postButtons.appendChild(postButtonEdit)
+        postButtons.appendChild(postButtonDelete)
+        postContainer.appendChild(postHeaderContainer)
+        postContainer.appendChild(postContent)
+        postContainer.appendChild(postTimeButtonsContainer)
+      });
     });
-    postContainer.innerHTML = postArray
   };
-  getPosts();
+
+  updatePost(auth);
+
   return (
     <>
-      <h2>Display Post</h2>
       <ul id="postContainer" className="postContainer"></ul>
     </>
   );

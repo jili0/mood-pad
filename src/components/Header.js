@@ -10,7 +10,7 @@ const Header = ({ auth }) => {
 
   return (
     <header>
-      <h1>Simple Login Page</h1>
+      <h1>MoodPad</h1>
       { auth.currentUser &&
         <button className="signOutButton" onClick={signOutUser}>
           Sign out

@@ -6,7 +6,7 @@ const UserSection = ({ auth }) => {
     <img
       className="user-photo"
       src={auth.currentUser.photoURL}
-      alt="user photo"
+      alt="current user"
     />
   ) : (
     <svg
@@ -33,7 +33,6 @@ const UserSection = ({ auth }) => {
       {userPhoto}
       <div className="userInfo">
         <p>User Email: {auth.currentUser.email}</p>
-        <p>User ID: <span className="userID">{auth.currentUser.uid}</span></p>
         <p>
           {auth.currentUser.emailVerified
             ? "(Email verified)"

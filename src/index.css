@@ -2,6 +2,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-size: min(2.5vh, 25px);
 }
 /* allgemein */
 html {
@@ -18,6 +19,7 @@ body {
   position: relative;
   padding-block: 5rem;
   width: 80vw;
+  min-width: 412px;
   max-width: 800px;
   min-height: 100vh;
   margin-inline: auto;
@@ -33,19 +35,37 @@ code {
 
 button {
   background-color: rgb(207, 229, 119);
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: rgb(194, 230, 54);
+  opacity: .8;
   cursor: pointer;
 }
 
 main {
-  margin-block: 1rem;
-  padding-block: 1rem;
+  margin-block: 3vh;
+  padding-block: 3vh;
+}
+
+h1 {
+  font-size: min(3.5vh, 35px);
+}
+
+/* Utilities */
+
+.whiteSpacePre {
+  white-space: pre;
+}
+
+.noWrap {
+  white-space: nowrap;
 }
 
 /* Header */
+
 header {
   color: #333;
   background-color: rgb(207, 229, 119);
@@ -57,13 +77,11 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 2vh;
 }
 
 .signOutButton {
   background-color: gold;
-  border: none;
-  border-radius: 5px;
-  padding: 0.3rem;
 }
 
 /* LogIn */
@@ -75,11 +93,11 @@ header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 50%;
-  margin-top: 3rem;
+  width: 80%;
+  margin-top: 15vh;
   margin-inline: auto;
   background-color: rgb(207, 229, 119);
-  padding: 1rem;
+  padding: 2vh;
   border-radius: 0.5rem;
 }
 
@@ -208,52 +226,100 @@ header {
 }
 
 /* DisplayPost */
+
 .postContainer {
-  border: solid 1px gainsboro;
-  margin: 1rem;
-  border-radius: 5px;
-  overflow: auto;
-  max-height: 80vh;
-  box-shadow: 1px 1px 5px gray;
-  list-style: none;
-  padding: 1rem;
-  display: block;
-  text-align: left;
-}
-
-details {
-  background-color: rgb(207, 229, 119);
-  border-radius: 5px;
-  margin: 0.2rem;
-}
-
-details[open] > summary {
-  list-style-type: "";
-  background-color: rgba(176, 207, 54, 0.937);
-}
-
-summary {
-  list-style-type: "";
-  padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
-  font-weight: bold;
-}
-summary:hover {
-  background-color: rgba(176, 207, 54, 0.937);
-  cursor: pointer;
+  max-height: 80vh;
+  list-style: none;
+  text-align: left;
+  padding: 0.2rem;
 }
 
-summary > p {
-  color: gray;
+.postHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0.2rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+  background-color: rgb(207, 229, 119);
+}
+
+.postTitle {
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.postTitleEdit {
+  background-image: radial-gradient(rgb(228, 201, 162),rgb(229, 161, 119));
+  background-color: rgb(229, 161, 119);
+  height: 15px;
+  width: 15px;
+  border-radius: 8px;
+  color: transparent;
+  align-self: center;
+  margin-right: .5rem;
+  padding: 0;
+}
+
+.postTitleEdit:hover {
+  height: auto;
+  width: auto;
+  border-radius: 4px;
+  color: black;
+  margin: 0 .5rem;
+  font-size: .8em;
+  padding: .1rem .3rem;
+}
+
+.postContent {
+  padding-inline: 0.2rem;
+  margin-inline: 0.2rem;
+  overflow: hidden;
+}
+
+.postTimeButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0.3rem;
+  border-bottom: solid 1px rgba(128, 128, 128, 0.605);
+}
+
+.postTime {
   font-size: 0.8em;
-  text-align: right;
-  font-weight: normal;
-  margin-top: .5rem;
+  color: #333;
 }
 
-#postDataContent {
-  padding: 1rem;
+.postButtons {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.postButtonEdit,
+.postButtonDelete {
+  font-size: 0.8em;
+  padding: 0.1rem;
+  width: 60px;
+  border-radius: 4px;
+}
+
+.postButtonEdit:hover {
+  background-color:  rgb(207, 241, 69);
+}
+
+
+.postButtonDelete {
+  background-color: rgb(255, 187, 0);
+}
+
+.postButtonDelete:hover {
+  background-color: rgb(255, 153, 0);
+}
+
+.postButtonEdit:active, .postButtonDelete:active {
+  opacity: .8;
 }
 
 /* Footer */

@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   font-size: min(2.5vh, 25px);
+  text-align: center;
 }
 /* allgemein */
 html {
@@ -274,6 +275,8 @@ header {
 }
 
 .postContent {
+  text-align: left;
+  color: #333;
   padding-inline: 0.2rem;
   margin-inline: 0.2rem;
   overflow: hidden;

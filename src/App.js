@@ -2,8 +2,6 @@ import React from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
-import "./App.css";
 import Header from "./components/Header";
 import LogIn from "./components/LogIn";
 import SignedIn from "./components/SignedIn";

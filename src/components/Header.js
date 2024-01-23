@@ -1,5 +1,7 @@
 import React from "react";
 import { signOut } from "firebase/auth";
+import '../stylesheets/header.css'
+
 
 const Header = ({ auth }) => {
   const signOutUser = () => {

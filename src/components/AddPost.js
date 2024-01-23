@@ -1,5 +1,6 @@
 import React from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import "../stylesheets/addPost.css";
 
 const AddPost = ({ db, auth }) => {
   const replaceNewline = (str) => {
@@ -41,17 +42,17 @@ const AddPost = ({ db, auth }) => {
     <>
       <form className="addPostForm">
         <label className="addPostLabel" htmlFor="addPostTitle">
-          Add Post Title:
+          Add Mood title &#40;optional&#41;
         </label>
         <input
           className="addPostTitle"
           id="addPostTitle"
           type="text"
-          placeholder="Post title"
+          placeholder="Add Mood title &#40;optional&#41;"
         />
 
         <label className="addPostLabel" htmlFor="addPostContent">
-          Add Post Content:
+          Add Mood content &#40;required&#41;
         </label>
         <textarea
           className="addPostContent"
@@ -59,7 +60,7 @@ const AddPost = ({ db, auth }) => {
           name=""
           cols="30"
           rows="10"
-          placeholder="Post content"
+          placeholder="Add Mood content &#40;required&#41;"
         ></textarea>
 
         <button className="addPostButton" onClick={addPost}>

@@ -1,5 +1,7 @@
 import React from "react";
 import { updateProfile } from "firebase/auth";
+import '../stylesheets/userManageAccount.css'
+
 
 const UserManageAccount = ({auth}) => {
   const updateUsername = (e) => {
@@ -17,13 +19,13 @@ const UserManageAccount = ({auth}) => {
 
   return (
     <>
-      <h2>Manage Account</h2>
-      <div>
+      <h2 className="manageAccountTitle">Manage Account</h2>
+      <div className="inputContainer">
         <label className="updateLabel" htmlFor="newName">Set username: </label>
         <input className="updateInput" id="newName" placeholder="new name" />
         <button className="updateButton" name="displayName" onClick={updateUsername}>Set new name</button>
       </div>
-      <div>
+      <div className="inputContainer">
         <label className="updateLabel" htmlFor="newPhoto">Set new photo URL: </label>
         <input className="updateInput" id="newPhoto" placeholder="new photo URL" />
         <button className="updateButton" name="photoURL" onClick={updateUsername}>Set new photo</button>

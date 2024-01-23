@@ -1,0 +1,35 @@
+.manageAccountTitle {
+  font-size: var(--FS-LARGE);
+}
+
+.inputContainer {
+  display: flex;
+  gap: 1vh;
+  margin: 1vh 2vh;
+}
+
+.updateLabel {
+  position: absolute;
+  left: -10000px;
+}
+
+.updateInput,
+.updateButton {
+  font: inherit;
+  padding: 0.5vh 2vh;
+  border-radius: 5px;
+  border: 3px solid var(--COLOR-THEME-2);
+}
+
+.updateInput {
+  text-align: left;
+  flex-grow: 1;
+}
+
+.updateInput::placeholder {
+  color: var(--COLOR-THEME-3);
+}
+
+.updateButton {
+  color: var(--COLOR-THEME-4);
+}

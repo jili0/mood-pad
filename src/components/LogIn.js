@@ -1,4 +1,6 @@
 import React from "react";
+import "../stylesheets/login.css";
+import google from "../logos/google.ico";
 
 import {
   createUserWithEmailAndPassword,
@@ -43,7 +45,9 @@ const Main = ({ auth }) => {
       .then(clearEmailAndPassword())
       .catch((error) => {
         console.error(error.message);
-        alert("Oops, something went wrong. \n Please check your email and password once again")
+        alert(
+          "Oops, something went wrong. \n Please check your email and password once again"
+        );
         clearEmailAndPassword();
       });
   };
@@ -53,31 +57,46 @@ const Main = ({ auth }) => {
       .then(clearEmailAndPassword())
       .catch((error) => {
         console.error(error.message);
-        alert("Oops, something went wrong. \nPlease make sure that \n - your password is more than 6 characters \n - your email is valid and not already registered")
+        alert(
+          "Oops, something went wrong. \nPlease make sure that \n - your password is more than 6 characters \n - your email is valid and not already registered"
+        );
         clearEmailAndPassword();
-      })
+      });
   };
 
   return (
+    <>
       <div className="signInElements">
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
         <input
           id="email"
-          placeholder="email"
+          placeholder="Enter email"
           onChange={changeEmail}
           value={email}
         />
         <input
           id="password"
           type="password"
-          placeholder="password"
+          placeholder="Enter password"
           onChange={changePassword}
           value={password}
         />
         <button onClick={signIn}>Sign in</button>
-
         <button onClick={createAccount}>Create account</button>
+        <button onClick={signInWithGoogle}>
+          <img
+            className="googleIcon"
+            src={google}
+            alt="Google"
+            width="36"
+            height="36"
+          />
+          Sign in with Google
+        </button>
       </div>
+      <a className="linkPortfolio" href="https://jili0.github.io/portfolio/">
+        Back to Jing&apos;s Portfolio
+      </a>
+    </>
   );
 };
 export default Main;

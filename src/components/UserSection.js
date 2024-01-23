@@ -1,5 +1,6 @@
 import React from "react";
 import UserManageAccount from "./UserManageAccount";
+import "../stylesheets/userSection.css";
 
 const UserSection = ({ auth }) => {
   const userPhoto = auth.currentUser.photoURL ? (
@@ -23,23 +24,25 @@ const UserSection = ({ auth }) => {
 
   return (
     <>
-      <h2 className="welcomeMessage">
-        Welcome!{" "}
-        {auth.currentUser.displayName
-          ? auth.currentUser.displayName.split(" ")[0]
-          : null}{" "}
-        &#128522;
-      </h2>
-      {userPhoto}
-      <div className="userInfo">
-        <p>User Email: {auth.currentUser.email}</p>
-        <p>
-          {auth.currentUser.emailVerified
-            ? "(Email verified)"
-            : "(Email not verified yet)"}
-        </p>
+      <div className="userSection">
+        <h2 className="welcomeMessage">
+          Hello,&nbsp;
+          {auth.currentUser.displayName
+            ? auth.currentUser.displayName.split(" ")[0]
+            : null}
+          !
+        </h2>
+        {userPhoto}
+        <div className="userInfo">
+          <p>{auth.currentUser.email}</p>
+          <p>
+            {auth.currentUser.emailVerified
+              ? "(Email verified)"
+              : "(Email not verified yet)"}
+          </p>
+        </div>
+        <hr />
       </div>
-
       <UserManageAccount auth={auth} />
     </>
   );

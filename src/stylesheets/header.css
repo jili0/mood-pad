@@ -1,0 +1,21 @@
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4vh 2vh;
+}
+
+h1 {
+  font-size: var(--FS-XL);
+  margin: 0;
+}
+
+.signOutButton {
+  background-color: var(--COLOR-THEME-4);
+  border: 2px solid var(--COLOR-THEME-1);
+}

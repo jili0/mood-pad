@@ -8,8 +8,9 @@ import {
   limit,
   doc,
   updateDoc,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
+import "../stylesheets/displayPost.css";
 
 const DisplayPost = ({ db, auth }) => {
   const updatePost = (auth) => {
@@ -21,32 +22,32 @@ const DisplayPost = ({ db, auth }) => {
     );
 
     const editTitle = async (postID, postTitle) => {
-      const newTitle = prompt("Editing post title", postTitle)
+      const newTitle = prompt("Editing post title", postTitle);
       if (newTitle) {
-        await updateDoc((doc(db, "posts", postID)), {
-          title: newTitle
-        })
+        await updateDoc(doc(db, "posts", postID), {
+          title: newTitle,
+        });
       }
-    }
+    };
     const editPost = async (postID, postContent) => {
-      const newContent = prompt("Editing the post", postContent)
+      const newContent = prompt("Editing the post", postContent);
       if (newContent) {
-        await updateDoc((doc(db, "posts", postID)), {
-          content: newContent
-        })
+        await updateDoc(doc(db, "posts", postID), {
+          content: newContent,
+        });
       }
-    }
+    };
 
     const deletePost = async (postID) => {
-      const confirm = prompt("Type anything to confirm delete")
+      const confirm = prompt("Type anything to confirm delete");
       if (confirm) {
-        await deleteDoc(doc(db, "posts", postID))
+        await deleteDoc(doc(db, "posts", postID));
       }
-    }
+    };
 
     onSnapshot(q, (querySnapshot) => {
-      const postContainer = document.getElementById("postContainer");
-      postContainer.innerHTML = "";
+      const postListContainer = document.getElementById("postListContainer");
+      postListContainer.innerHTML = "";
 
       querySnapshot.forEach((post) => {
         let title;
@@ -63,38 +64,40 @@ const DisplayPost = ({ db, auth }) => {
         };
 
         /* Create HTML Elements */
-        const postHeaderContainer = document.createElement("div")
-        const postTitle = document.createElement("p")
-        const postTitleEdit = document.createElement("button")
-        const postContent = document.createElement("p")
-        const postTimeButtonsContainer = document.createElement("div")
-        const postTime = document.createElement("p")
-        const postButtons = document.createElement("div")
-        const postButtonEdit = document.createElement("button")
-        const postButtonDelete = document.createElement("button")
+        const postListItem = document.createElement("div");
+        const postHeader = document.createElement("div");
+        const postTitle = document.createElement("p");
+        const postButtonEditTitle = document.createElement("button");
+        const postContent = document.createElement("p");
+        const postFooter = document.createElement("div");
+        const postTime = document.createElement("p");
+        const postButtons = document.createElement("div");
+        const postButtonEditContent = document.createElement("button");
+        const postButtonDelete = document.createElement("button");
 
         /* Set Class Name */
-        postHeaderContainer.className = "postHeaderContainer"
-        postTitle.className = "postTitle"
-        postTitleEdit.className = "postTitleEdit"
-        postTitleEdit.classList.add("noWrap")
-        postContent.className = "postContent"
-        postContent.classList.add("whiteSpacePre")
-        postTimeButtonsContainer.className = "postTimeButtonsContainer"
-        postTime.className = "postTime"
-        postButtons.className = "postButtons"
-        postButtonEdit.className = "postButtonEdit"
-        postButtonDelete.className = "postButtonDelete"
+        postListItem.className = "postListItem"
+        postHeader.className = "postHeader";
+        postTitle.className = "postTitle";
+        postButtonEditTitle.className = "postButtonEditTitle";
+        postButtonEditTitle.classList.add("noWrap");
+        postContent.className = "postContent";
+        postContent.classList.add("whiteSpacePre");
+        postFooter.className = "postFooter";
+        postTime.className = "postTime";
+        postButtons.className = "postButtons";
+        postButtonEditContent.className = "postButtonEditContent";
+        postButtonDelete.className = "postButtonDelete";
 
         /* Add function */
-        postTitleEdit.onclick = () => editTitle(post.id, title)
-        postButtonEdit.onclick = () => editPost(post.id, content)
-        postButtonDelete.onclick = () => deletePost(post.id)
+        postButtonEditTitle.onclick = () => editTitle(post.id, title);
+        postButtonEditContent.onclick = () => editPost(post.id, content);
+        postButtonDelete.onclick = () => deletePost(post.id);
 
         /* Set Text Content */
-        postTitle.textContent = title && title
-        postTitleEdit.textContent = "Edit Title"
-        postContent.textContent = content && content
+        postTitle.textContent = title && title;
+        postButtonEditTitle.textContent = "Edit Title";
+        postContent.textContent = content && content;
         postTime.textContent = `${
           time && formatNumber(time.toDate().getDate())
         }-${time && formatNumber(time.toDate().getMonth() + 1)}-${
@@ -102,19 +105,40 @@ const DisplayPost = ({ db, auth }) => {
         } ${time && formatNumber(time.toDate().getHours())}:${
           time && formatNumber(time.toDate().getMinutes())
         }`;
-        postButtonEdit.textContent = "Edit"
-        postButtonDelete.textContent = "Delete"
+        postButtonEditContent.textContent = "Edit Content";
+        postButtonDelete.textContent = "Delete Post";
 
-        /* Chain HTML Elements together */
-        postHeaderContainer.appendChild(postTitle)
-        postHeaderContainer.appendChild(postTitleEdit)
-        postTimeButtonsContainer.appendChild(postTime)
-        postTimeButtonsContainer.appendChild(postButtons)
-        postButtons.appendChild(postButtonEdit)
-        postButtons.appendChild(postButtonDelete)
-        postContainer.appendChild(postHeaderContainer)
-        postContainer.appendChild(postContent)
-        postContainer.appendChild(postTimeButtonsContainer)
+        /* Chain HTML Elements together 
+          <div className="postListItem">
+            <div className="postHeader">
+              <p className="postTitle"></p>
+              <p className="postTime"></p>
+            </div>
+
+            <p className="postContent"></p>
+
+            <div className="postFooter">
+              <div className="postButtons">
+                <button className="postButtonEditTitle"></button>
+                <button className="postButttonEdit"></button>
+                <button className="postButttonDelete"></button>
+              </div>
+            </div>
+          </div>
+        */
+        postHeader.appendChild(postTitle);
+        postHeader.appendChild(postTime);
+        postFooter.appendChild(postButtons);
+
+        postButtons.appendChild(postButtonEditTitle);
+        postButtons.appendChild(postButtonEditContent);
+        postButtons.appendChild(postButtonDelete);
+
+        postListItem.appendChild(postHeader);
+        postListItem.appendChild(postContent);
+        postListItem.appendChild(postFooter);
+
+        postListContainer.appendChild(postListItem);
       });
     });
   };
@@ -123,7 +147,7 @@ const DisplayPost = ({ db, auth }) => {
 
   return (
     <>
-      <ul id="postContainer" className="postContainer"></ul>
+      <ul id="postListContainer" className="postListContainer"></ul>
     </>
   );
 };

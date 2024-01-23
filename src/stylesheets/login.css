@@ -1,0 +1,52 @@
+.errorMessage {
+  color: red;
+}
+
+.signInElements {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  width: 80%;
+  margin-top: 8vh;
+  margin-inline: auto;
+  background-color: var(--COLOR-THEME-4);
+  border: solid 3px var(--COLOR-THEME-2);
+  padding: 4vh 2vh;
+  border-radius: 0.5rem;
+}
+
+.signInElements > input {
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.signInElements > input::placeholder {
+  color: var(--COLOR-THEME-3);
+  text-align: left;
+  padding-inline: 2vh;
+}
+
+.signInElements > button {
+  background-color: var(--COLOR-THEME-1);
+  color: var(--COLOR-THEME-4);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.googleIcon {
+  margin-right: 2vh;
+}
+
+.linkPortfolio {
+  display: inline-block;
+  margin-top: 4vh;
+  color: var(--COLOR-THEME-3);
+}
+
+.linkPortfolio:hover,
+.linkPortfolio:focus {
+  color: var(--COLOR-THEME-2);
+}

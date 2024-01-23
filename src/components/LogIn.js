@@ -1,6 +1,7 @@
 import React from "react";
 import "../stylesheets/login.css";
 import google from "../logos/google.ico";
+import { FaArrowRightToBracket } from "react-icons/fa6";
 
 import {
   createUserWithEmailAndPassword,
@@ -94,6 +95,8 @@ const Main = ({ auth }) => {
         </button>
       </div>
       <a className="linkPortfolio" href="https://jili0.github.io/portfolio/">
+        <FaArrowRightToBracket />
+        &nbsp;
         Back to Jing&apos;s Portfolio
       </a>
     </>

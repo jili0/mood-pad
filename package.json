@@ -1,7 +1,7 @@
 {
   "name": "react-project",
   "version": "0.1.0",
-  "homepage": "https://jili0.github.io/react-project",
+  "homepage": "https://jili0.github.io/mood-pad",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

@@ -1,7 +1,7 @@
 import "../stylesheets/nav.css";
 import { NavLink } from "react-router-dom";
 
-const Nav = ({ search, setSearch }) => {
+const Nav = () => {
   const activeStyle = { color: "#333", backgroundColor: "#ccc" };
   return (
     <nav>
@@ -13,13 +13,13 @@ const Nav = ({ search, setSearch }) => {
       </NavLink>
       <NavLink
         style={({ isActive }) => (isActive ? activeStyle : null)}
-        to="/react-project/post"
+        to="/react-project/mood"
       >
         Mood
       </NavLink>
       <NavLink
         style={({ isActive }) => (isActive ? activeStyle : null)}
-        to="/react-project/add-post"
+        to="/react-project/add-mood"
       >
         Add Mood
       </NavLink>

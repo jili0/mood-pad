@@ -1,17 +1,17 @@
-.addPostForm {
+.addMoodForm {
   display: flex;
   flex-direction: column;
   padding: 4vh;
   align-items: flex-start;
 }
 
-.addPostLabel {
+.addMoodLabel {
   position: absolute;
   left: -99999px;
 }
 
-.addPostTitle,
-.addPostContent {
+.addMoodTitle,
+.addMoodContent {
   text-align: left;
   border: 2px solid var(--COLOR-THEME-2);
   box-shadow: 1px 1px 1px 1px var(--COLOR-THEME-2);
@@ -22,7 +22,7 @@
   margin-block: 1vh;
 }
 
-.addPostButton {
+.addMoodButton {
   color: var(--COLOR-THEME-1);
   background-color: var(--COLOR-THEME-3);
   border-radius: 5px;

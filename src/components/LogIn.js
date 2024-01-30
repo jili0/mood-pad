@@ -5,6 +5,7 @@ import { FaArrowRightToBracket } from "react-icons/fa6";
 
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
@@ -55,7 +56,7 @@ const Main = ({ auth }) => {
 
   const createAccount = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(clearEmailAndPassword())
+      .then(() => sendEmailVerification(auth.currentUser))
       .catch((error) => {
         console.error(error.message);
         alert(
@@ -96,8 +97,7 @@ const Main = ({ auth }) => {
       </div>
       <a className="linkPortfolio" href="https://jili0.github.io/portfolio/">
         <FaArrowRightToBracket />
-        &nbsp;
-        Back to Jing&apos;s Portfolio
+        &nbsp; Back to Jing&apos;s Portfolio
       </a>
     </>
   );

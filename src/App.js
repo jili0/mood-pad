@@ -10,14 +10,12 @@ import Footer from "./components/Footer";
 const App = () => {
   const [signedIn, setSignedIn] = React.useState(false);
 
+  /*  Firebase initialization */
   const firebaseConfig = {
     apiKey: "AIzaSyD6QAiG1M9jcmlidvHBPL8fZocb2S8Ia48",
     authDomain: "jili0-react-project.firebaseapp.com",
     projectId: "jili0-react-project",
     storageBucket: "jili0-react-project.appspot.com",
-    messagingSenderId: "1067526600287",
-    appId: "1:1067526600287:web:7fece1f469faec016e0dea",
-    measurementId: "G-FJKCTSMY82",
   };
 
   const app = initializeApp(firebaseConfig);
@@ -36,7 +34,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header auth={auth}/>
+      <Header auth={auth} />
       {signedIn ? <SignedIn auth={auth} db={db} /> : <LogIn auth={auth} />}
       <Footer />
     </div>

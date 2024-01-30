@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/mood-pad/static/css/main.f67dffbb.css",
-    "main.js": "/mood-pad/static/js/main.69aad4e8.js",
+    "main.css": "/mood-pad/static/css/main.d3fcd95b.css",
+    "main.js": "/mood-pad/static/js/main.0043a4c7.js",
     "static/js/787.574a4694.chunk.js": "/mood-pad/static/js/787.574a4694.chunk.js",
     "static/media/google.ico": "/mood-pad/static/media/google.68113a27e75d141340fe.ico",
     "index.html": "/mood-pad/index.html",
-    "main.f67dffbb.css.map": "/mood-pad/static/css/main.f67dffbb.css.map",
-    "main.69aad4e8.js.map": "/mood-pad/static/js/main.69aad4e8.js.map",
+    "main.d3fcd95b.css.map": "/mood-pad/static/css/main.d3fcd95b.css.map",
+    "main.0043a4c7.js.map": "/mood-pad/static/js/main.0043a4c7.js.map",
     "787.574a4694.chunk.js.map": "/mood-pad/static/js/787.574a4694.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f67dffbb.css",
-    "static/js/main.69aad4e8.js"
+    "static/css/main.d3fcd95b.css",
+    "static/js/main.0043a4c7.js"
   ]
 }

@@ -6,7 +6,6 @@
   color: var(--COLOR-THEME-4);
 }
 
-
 .welcomeMessage {
   font-size: var(--FS-LARGE);
 }
@@ -16,16 +15,6 @@
   width: 100px;
   border-radius: 50%;
   border: 5px solid var(--COLOR-THEME-2);
-  margin-inline: auto;
-  margin-block: 1rem;
-}
-.user-photo-default {
-  height: 50px;
-  width: 50px;
-  border: solid 2px #333;
-  padding: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--COLOR-THEME-2);
   margin-inline: auto;
   margin-block: 1rem;
 }

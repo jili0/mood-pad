@@ -13,15 +13,15 @@ const SignedIn = ({ auth, db }) => {
         <Route
           exact
           strict
-          path="/react-project/home"
+          path="/mood-pad"
           element={<UserSection auth={auth} />}
         />
         <Route
-          path="/react-project/mood"
+          path="/mood-pad/mood"
           element={<Mood db={db} auth={auth} />}
         />
         <Route
-          path="/react-project/add-mood"
+          path="/mood-pad/add-mood"
           element={<AddMood db={db} auth={auth} />}
         />
       </Routes>

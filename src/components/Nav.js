@@ -6,20 +6,21 @@ const Nav = () => {
   return (
     <nav>
       <NavLink
+        end
         style={({ isActive }) => (isActive ? activeStyle : null)}
-        to="/react-project/home"
+        to="/mood-pad"
       >
         Home
       </NavLink>
       <NavLink
         style={({ isActive }) => (isActive ? activeStyle : null)}
-        to="/react-project/mood"
+        to="/mood-pad/mood"
       >
         Mood
       </NavLink>
       <NavLink
         style={({ isActive }) => (isActive ? activeStyle : null)}
-        to="/react-project/add-mood"
+        to="/mood-pad/add-mood"
       >
         Add Mood
       </NavLink>

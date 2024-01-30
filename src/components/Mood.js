@@ -76,14 +76,14 @@ const Mood = ({ db, auth }) => {
           /* 
           <div className="moodListItem">
             <div className="moodHeader">
-              <p className="moodTitle"></p>
+              <p className="moodTitle noWrap"></p>
               <p className="moodTime"></p>
             </div>
-            <p className="moodContent"></p>
+            <p className="moodContent whiteSpacePre"></p>
             <div className="moodFooter">
               <div className="moodButtons">
                 <button className="moodButtonEditTitle"></button>
-                <button className="moodButttonEdit"></button>
+                <button className="moodButttonEditContent"></button>
                 <button className="moodButttonDelete"></button>
               </div>
             </div>

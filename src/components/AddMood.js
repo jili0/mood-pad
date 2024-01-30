@@ -26,7 +26,7 @@ const AddMood = ({ db, auth }) => {
           time: moodTime,
           authorID: moodUid,
         });
-        console.log("Mood created with ID: ", moodRef.id);
+        alert("Mood successfully created!");
         document.getElementById("addMoodTitle").value = "";
         document.getElementById("addMoodContent").value = "";
       } catch (error) {
